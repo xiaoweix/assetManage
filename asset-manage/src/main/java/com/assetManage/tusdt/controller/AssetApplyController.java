@@ -30,7 +30,6 @@ public class AssetApplyController {
     @Resource
     AssetApplyService assetApplyService;
 
-
     @ApiOperation(value = "提交申请", notes = "提交资产有关申请，注意此接口借用、使用、申领、反馈通用")
     @ApiResponses({@ApiResponse(code = Response.OK, message = "提交成功"),})
     @ApiImplicitParams(
