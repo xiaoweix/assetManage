@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assetManage.tusdt.dao.AssetApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.assetManage.tusdt.model.AssetApply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="asset_id" property="assetId" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="urgency" property="urgency" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+    <result column="image3" property="image3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, type, number, user_id, asset_id, address, purpose, start_time, end_time, urgency, 
+    remarks, result, image1, image2, image3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assetManage.tusdt.model.AssetApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from asset_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from asset_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assetManage.tusdt.model.AssetApplyExample" >
+    delete from asset_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assetManage.tusdt.model.AssetApply" useGeneratedKeys="true" keyProperty="id">
+    insert into asset_apply (id, type, number, 
+      user_id, asset_id, address, 
+      purpose, start_time, end_time, 
+      urgency, remarks, result, 
+      image1, image2, image3
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{assetId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{purpose,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{urgency,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER}, 
+      #{image1,jdbcType=VARCHAR}, #{image2,jdbcType=VARCHAR}, #{image3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.assetManage.tusdt.model.AssetApply" >
+    insert into asset_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="assetId != null" >
+        asset_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="urgency != null" >
+        urgency,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="image1 != null" >
+        image1,
+      </if>
+      <if test="image2 != null" >
+        image2,
+      </if>
+      <if test="image3 != null" >
+        image3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="assetId != null" >
+        #{assetId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urgency != null" >
+        #{urgency,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="image1 != null" >
+        #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        #{image3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assetManage.tusdt.model.AssetApplyExample" resultType="java.lang.Integer" >
+    select count(*) from asset_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update asset_apply
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetId != null" >
+        asset_id = #{record.assetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.urgency != null" >
+        urgency = #{record.urgency,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=INTEGER},
+      </if>
+      <if test="record.image1 != null" >
+        image1 = #{record.image1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image2 != null" >
+        image2 = #{record.image2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image3 != null" >
+        image3 = #{record.image3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update asset_apply
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      asset_id = #{record.assetId,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      purpose = #{record.purpose,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      urgency = #{record.urgency,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      result = #{record.result,jdbcType=INTEGER},
+      image1 = #{record.image1,jdbcType=VARCHAR},
+      image2 = #{record.image2,jdbcType=VARCHAR},
+      image3 = #{record.image3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assetManage.tusdt.model.AssetApply" >
+    update asset_apply
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="assetId != null" >
+        asset_id = #{assetId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urgency != null" >
+        urgency = #{urgency,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="image1 != null" >
+        image1 = #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        image2 = #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        image3 = #{image3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assetManage.tusdt.model.AssetApply" >
+    update asset_apply
+    set type = #{type,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      asset_id = #{assetId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      urgency = #{urgency,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      result = #{result,jdbcType=INTEGER},
+      image1 = #{image1,jdbcType=VARCHAR},
+      image2 = #{image2,jdbcType=VARCHAR},
+      image3 = #{image3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectApplyDetail" resultType="com.assetManage.tusdt.model.bo.AssetLogInfoDetailBO">
+    select aa.type, aa.number,u.user_name userName, aa.asset_id assetId,ai.asset_name assetName,ai.version assetVersion, aa.address, aa.purpose,
+    aa.start_time startTime,aa.end_time endTime,aa.urgency, aa.remarks, aa.result, aa.image1, aa.image2, aa.image3
+    from asset_apply aa, asset_info ai, user u
+    where aa.user_id = u.id
+    and aa.asset_id = ai.id
+    and aa.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getAssetApplyList" resultType="com.assetManage.tusdt.model.bo.AssetApplyListBO">
+    select aa.id, aa.type, aa.number,u.user_name userName, aa.asset_id assetId, ai.asset_name assetName,aa.start_time startTime, urgency, result
+    from asset_apply aa, asset_info ai, user u
+    where aa.user_id = u.id
+    and aa.asset_id = ai.id
+    <if test="assetId != null" >
+      and asset_id = #{assetId,jdbcType=INTEGER}
+    </if>
+    <if test="userName != null">
+      AND u.user_name like CONCAT(CONCAT('%',#{userName}),'%')
+    </if>
+    <if test="status != null" >
+      and aa.result = #{status,jdbcType=INTEGER}
+    </if>
+    <if test="jobLevel != null" >
+      and u.job_level = #{jobLevel,jdbcType=INTEGER}
+    </if>
+    <if test="telephone != null" >
+      and u.telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="getAssetUseHistory" resultType="com.assetManage.tusdt.model.bo.AssetUseHistoryBO">
+    select aa.id, ai.asset_name assetName ,aa.type applyType, u.user_name userName, aa.start_time startTime,aa.result status from  asset_apply aa, asset_info ai, user u
+    where aa.asset_id = ai.id
+    and aa.user_id = u.id
+    <if test="assetId != null" >
+      and aa.asset_id = #{assetId,jdbcType=INTEGER}
+    </if>
+    <if test="assetName != null">
+      AND ai.asset_name like CONCAT(CONCAT('%',#{assetName}),'%')
+    </if>
+    <if test="userName != null">
+      AND u.user_name like CONCAT(CONCAT('%',#{userName}),'%')
+    </if>
+    <if test="type != null" >
+      and aa.type = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="userId != null" >
+      and aa.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+<!--  类型1:借用、2:申领、3:采购、4:反馈、5、固定使用-->
+  <select id="countLend" resultType="java.lang.Integer">
+    select count(1) from asset_apply where type = 1
+  </select>
+  <select id="countGet" resultType="java.lang.Integer">
+    select count(1) from asset_apply where type = 2
+  </select>
+  <select id="countUse" resultType="java.lang.Integer">
+    select count(1) from asset_apply where type = 5
+  </select>
+  <select id="countRepair" resultType="java.lang.Integer">
+    select count(1) from asset_apply where type = 4
+  </select>
+
+  <select id="getRank" resultType="com.assetManage.tusdt.model.bo.AssetLendRankBO">
+    select ai.asset_name assetName, count(1) assetNum from asset_apply aa, asset_info ai
+    where aa.asset_id = ai.id
+    group by ai.asset_name
+    order by assetNum
+    limit 5
+  </select>
+  <!--    最近半年执行情况-->
+  <select id="selectLatelyTask" resultType="java.util.Map">
+    SELECT DATE_FORMAT(start_time,"%Y.%m") monthDate, COUNT(1) total
+    FROM asset_apply GROUP BY  YEAR(start_time),MONTH(start_time)
+    ORDER BY start_time DESC LIMIT 1,7
+  </select>
+</mapper>

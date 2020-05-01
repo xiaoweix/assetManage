@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assetManage.tusdt.dao.AssetInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.assetManage.tusdt.model.AssetInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="asset_name" property="assetName" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="manufacture" property="manufacture" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="purchase_date" property="purchaseDate" jdbcType="TIMESTAMP" />
+    <result column="life" property="life" jdbcType="INTEGER" />
+    <result column="use_type" property="useType" jdbcType="INTEGER" />
+    <result column="manage_id" property="manageId" jdbcType="INTEGER" />
+    <result column="warehouse_id" property="warehouseId" jdbcType="INTEGER" />
+    <result column="map_id" property="mapId" jdbcType="INTEGER" />
+    <result column="asset_num" property="assetNum" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+    <result column="image3" property="image3" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, asset_name, type_id, version, manufacture, price, status, purchase_date, life,
+    use_type, manage_id, warehouse_id, map_id, asset_num, remarks, image1, image2, image3,
+    is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from asset_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.assetManage.tusdt.model.AssetInfo" >
+    insert into asset_info (id, asset_name, type_id,
+    version, manufacture, price,
+    status, purchase_date, life,
+    use_type, manage_id, warehouse_id,
+    map_id, asset_num, remarks,
+    image1, image2, image3,
+    is_delete)
+    values (#{id,jdbcType=INTEGER}, #{assetName,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
+    #{version,jdbcType=VARCHAR}, #{manufacture,jdbcType=VARCHAR}, #{price,jdbcType=BIGINT},
+    #{status,jdbcType=INTEGER}, #{purchaseDate,jdbcType=TIMESTAMP}, #{life,jdbcType=INTEGER},
+    #{useType,jdbcType=INTEGER}, #{manageId,jdbcType=INTEGER}, #{warehouseId,jdbcType=INTEGER},
+    #{mapId,jdbcType=INTEGER}, #{assetNum,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR},
+    #{image1,jdbcType=VARCHAR}, #{image2,jdbcType=VARCHAR}, #{image3,jdbcType=VARCHAR},
+    #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assetManage.tusdt.model.AssetInfo" >
+    insert into asset_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="assetName != null" >
+        asset_name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="manufacture != null" >
+        manufacture,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="purchaseDate != null" >
+        purchase_date,
+      </if>
+      <if test="life != null" >
+        life,
+      </if>
+      <if test="useType != null" >
+        use_type,
+      </if>
+      <if test="manageId != null" >
+        manage_id,
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id,
+      </if>
+      <if test="mapId != null" >
+        map_id,
+      </if>
+      <if test="assetNum != null" >
+        asset_num,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="image1 != null" >
+        image1,
+      </if>
+      <if test="image2 != null" >
+        image2,
+      </if>
+      <if test="image3 != null" >
+        image3,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assetName != null" >
+        #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacture != null" >
+        #{manufacture,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseDate != null" >
+        #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="life != null" >
+        #{life,jdbcType=INTEGER},
+      </if>
+      <if test="useType != null" >
+        #{useType,jdbcType=INTEGER},
+      </if>
+      <if test="manageId != null" >
+        #{manageId,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="mapId != null" >
+        #{mapId,jdbcType=INTEGER},
+      </if>
+      <if test="assetNum != null" >
+        #{assetNum,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assetManage.tusdt.model.AssetInfo" >
+    update asset_info
+    <set >
+      <if test="assetName != null" >
+        asset_name = #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacture != null" >
+        manufacture = #{manufacture,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseDate != null" >
+        purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="life != null" >
+        life = #{life,jdbcType=INTEGER},
+      </if>
+      <if test="useType != null" >
+        use_type = #{useType,jdbcType=INTEGER},
+      </if>
+      <if test="manageId != null" >
+        manage_id = #{manageId,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="mapId != null" >
+        map_id = #{mapId,jdbcType=INTEGER},
+      </if>
+      <if test="assetNum != null" >
+        asset_num = #{assetNum,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        image1 = #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        image2 = #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        image3 = #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assetManage.tusdt.model.AssetInfo" >
+    update asset_info
+    set asset_name = #{assetName,jdbcType=VARCHAR},
+    type_id = #{typeId,jdbcType=INTEGER},
+    version = #{version,jdbcType=VARCHAR},
+    manufacture = #{manufacture,jdbcType=VARCHAR},
+    price = #{price,jdbcType=BIGINT},
+    status = #{status,jdbcType=INTEGER},
+    purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+    life = #{life,jdbcType=INTEGER},
+    use_type = #{useType,jdbcType=INTEGER},
+    manage_id = #{manageId,jdbcType=INTEGER},
+    warehouse_id = #{warehouseId,jdbcType=INTEGER},
+    map_id = #{mapId,jdbcType=INTEGER},
+    asset_num = #{assetNum,jdbcType=INTEGER},
+    remarks = #{remarks,jdbcType=VARCHAR},
+    image1 = #{image1,jdbcType=VARCHAR},
+    image2 = #{image2,jdbcType=VARCHAR},
+    image3 = #{image3,jdbcType=VARCHAR},
+    is_delete = #{isDelete,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAssetList" resultType="com.assetManage.tusdt.model.bo.AssetListBO">
+    select ai.id, ai.asset_name assetName, version, status, ai.use_type useType, w.name from asset_info ai, warehouse w
+    where ai.warehouse_id = w.id
+    <if test="assetId != null" >
+      and ai.id = #{assetId,jdbcType=INTEGER}
+    </if>
+    <if test="status != null" >
+      and ai.status = #{status,jdbcType=INTEGER}
+    </if>
+    <if test="assetName != null">
+      AND j.asset_name like CONCAT(CONCAT('%',#{assetName}),'%')
+    </if>
+    <if test="repositoryName != null">
+      AND w.name like CONCAT(CONCAT('%',#{repositoryName}),'%')
+    </if>
+    <if test="useType != null">
+      and ai.useType != #{useType,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="countAsset" resultType="java.lang.Integer">
+    select count(1) from asset_info where is_delete = 0
+  </select>
+  <select id="countAssetInUse" resultType="java.lang.Integer">
+    select count(1) from asset_info where is_delete = 0 and status != 0 and status != 3 and status != 4
+  </select>
+  <select id="countAssetLend" resultType="java.lang.Integer">
+    select count(1) from asset_info where is_delete = 0 and status = 1
+  </select>
+  <select id="countAssetDamageNum" resultType="java.lang.Integer">
+    select count(1) from asset_info where is_delete = 0 and status != 0 and status != 1 and status != 2
+  </select>
+
+</mapper>
