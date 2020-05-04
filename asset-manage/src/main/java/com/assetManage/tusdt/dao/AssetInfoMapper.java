@@ -27,5 +27,7 @@ public interface AssetInfoMapper {
 
     int countAssetDamageNum();
 
+    int countByWareHouse(@Param("wareHouseId") Integer wareHouseId);
+
     List<AssetListBO> selectAssetList(@Param("assetId") Integer assetId, @Param("assetName") String assetName, @Param("repositoryName") String repositoryName, @Param("status") Integer status, @Param("useType") Integer useType);
 }

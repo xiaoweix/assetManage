@@ -51,11 +51,12 @@ public class UserInfoController {
 
         ResponseData<List<UserListBO>> responseData = new ResponseData<>();
         int rank = (int) request.getAttribute("jobLevel");
+        //
         if(rank < CommonConstant.JOB_LEVEL_ADMIN) {
             responseData.setError("权限不足，仅管理员可见");
             return responseData;
         }
-        List<UserListBO> userList = userInfoService.getUserList(userName);
+        List<UserListBO> userList = userInfoService.getUserList(userId,userName,status,telephone,jobLevel);
         if(userList == null || userList.size() == 0) {
             responseData.setError("获取失败");
             return responseData;

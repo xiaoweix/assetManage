@@ -257,11 +257,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="warehouseList" resultType="com.assetManage.tusdt.model.bo.WarehouseBO">
-    select w.id id, w.name name, w.address address, w.create_time createTime ,count(1) assetNum from warehouse w, asset_info ai
+    select w.id id, w.name name, w.address address, w.create_time createTime, u.user_name manageName from warehouse w, user u
     where 1>0
     and w.is_delete = 0
-    and ai.is_delete = 0
-    and ai.warehouse_id = w.id
+    and u.id = w.manage_id
     <if test="warehouseId != null" >
       and w.id = #{warehouseId,jdbcType=INTEGER}
     </if>
@@ -272,5 +271,8 @@
       AND w.address like CONCAT(CONCAT('%',#{address}),'%')
     </if>
     GROUP BY w.id
+  </select>
+  <select id="selectWarehouseBox" resultType="com.assetManage.tusdt.model.bo.WarehouseBox">
+    select id, name from warehouse where is_delete = 0
   </select>
 </mapper>

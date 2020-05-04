@@ -5,6 +5,7 @@ import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.model.Warehouse;
 import com.assetManage.tusdt.model.bo.AssetListBO;
 import com.assetManage.tusdt.model.bo.WarehouseBO;
+import com.assetManage.tusdt.model.bo.WarehouseBox;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface WarehouseInfoService {
     ResponseData<String> removeWarehouse(Integer userId,Integer id);
 
     List<WarehouseBO> getWarehouseList(Integer currPage, Integer pageSize, Integer warehouseId, String warehouseName, String address);
+
+    List<WarehouseBox> getWarehouseList();
 }

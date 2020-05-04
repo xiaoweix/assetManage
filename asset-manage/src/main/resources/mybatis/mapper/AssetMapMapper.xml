@@ -256,4 +256,15 @@
       is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="mapList" resultType="com.assetManage.tusdt.model.bo.MapListBO">
+    select id , map_name mapName from asset_map where is_delete = 0
+  </select>
+  <select id="allMapList" resultType="com.assetManage.tusdt.model.AssetMap">
+    select id, map_name mapName, map_x mapX, map_y mapY, map_length mapLength, map_width mapWidth, create_time createTime, is_delete isDelete from asset_map where is_delete = 0
+  </select>
+  <select id="getMapAsset" resultType="com.assetManage.tusdt.model.bo.AssetListBO">
+    select ai.id, ai.asset_name assetName, version, status, ai.use_type useType, w.name warehouseName,purchase_date purchaseDate from asset_info ai, warehouse w
+    where ai.warehouse_id = w.id
+    and ai.map_id = #{mapId,jdbcType=INTEGER},
+  </select>
 </mapper>

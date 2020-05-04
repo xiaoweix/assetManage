@@ -273,15 +273,27 @@
       is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-  <select id="selectByUserName" resultType="com.assetManage.tusdt.model.User">
+  <select id="selectByUserName" resultType="com.assetManage.tusdt.model.bo.UserListBO">
     select
-    id, user_name userName, signature, telephone, email, job_level jobLevel, status, is_delete isDelete
+    id, user_name userName, telephone, email, job_level jobLevel, status
     from user
-    where 1>0
+    where is_delete = 0
     <if test="userName != null">
       and user_name like CONCAT(CONCAT('%',#{userName}),'%')
     </if>
+    <if test="userId != null">
+      and id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="status != null">
+      and status = #{status,jdbcType=INTEGER}
+    </if>
+    <if test="telephone != null">
+      and telephone = #{telephone,jdbcType=INTEGER}
+    </if>
+    <if test="jobLevel != null">
+      and job_level = #{jobLevel,jdbcType=INTEGER}
+    </if>
+    order by job_level desc
   </select>
 
   <select id="loginByEmail" resultType="com.assetManage.tusdt.model.User">

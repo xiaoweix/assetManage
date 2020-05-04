@@ -3,9 +3,12 @@ package com.assetManage.tusdt.service.impl;
 import com.assetManage.tusdt.base.common.Pagination;
 import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.constants.CommonConstant;
+import com.assetManage.tusdt.dao.AssetInfoMapper;
 import com.assetManage.tusdt.dao.WarehouseMapper;
+import com.assetManage.tusdt.model.AssetInfo;
 import com.assetManage.tusdt.model.Warehouse;
 import com.assetManage.tusdt.model.bo.WarehouseBO;
+import com.assetManage.tusdt.model.bo.WarehouseBox;
 import com.assetManage.tusdt.service.AssetLogInfoService;
 import com.assetManage.tusdt.service.WarehouseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +30,16 @@ public class WarehouseInfoServiceImpl implements WarehouseInfoService {
     @Autowired
     private WarehouseMapper warehouseMapper;
 
+    @Autowired
+    private AssetInfoMapper assetInfoMapper;
+
     @Resource
     private AssetLogInfoService assetLogInfoService;
 
     @Override
     public ResponseData<String> addWarehouse(Integer userId, Warehouse warehouse) {
         ResponseData<String> responseData = new ResponseData<>();
+        warehouse.setManageId(userId);
         warehouse.setCreateTime(new Date());
         warehouse.setIsDelete(CommonConstant.DELETED_NO);
         Integer id = warehouseMapper.insert(warehouse);
@@ -62,6 +69,16 @@ public class WarehouseInfoServiceImpl implements WarehouseInfoService {
     @Override
     public List<WarehouseBO> getWarehouseList(Integer currPage, Integer pageSize, Integer warehouseId, String warehouseName, String address) {
         List<WarehouseBO> warehouseBOList = warehouseMapper.warehouseList(warehouseId, warehouseName, address);
+        for (WarehouseBO warehouse : warehouseBOList) {
+            Integer assetNum = assetInfoMapper.countByWareHouse(warehouse.getId());
+
+            warehouse.setAssetNum(assetNum);
+        }
         return warehouseBOList;
+    }
+
+    @Override
+    public List<WarehouseBox> getWarehouseList() {
+        return warehouseMapper.selectWarehouseBox();
     }
 }

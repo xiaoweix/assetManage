@@ -32,14 +32,14 @@ public class CommonConstant {
 
     /**
      * 职位等级
-     * 用户等级0:普通学生用户,1:教师用户,2:管理员，9:超级管理员
+     * 用户等级1:普通学生用户,2:教师用户,3:管理员，9:超级管理员
      */
 
-    public static final Integer JOB_LEVEL_STUDENT = 0;
+    public static final Integer JOB_LEVEL_STUDENT = 1;
 
-    public static final Integer JOB_LEVEL_TEACHER = 1;
+    public static final Integer JOB_LEVEL_TEACHER = 2;
 
-    public static final Integer JOB_LEVEL_ADMIN = 2;
+    public static final Integer JOB_LEVEL_ADMIN = 3;
 
     public static final Integer JOB_LEVEL_SUPER_ADMIN = 9;
 

@@ -7,6 +7,7 @@ import com.assetManage.tusdt.constants.CommonConstant;
 import com.assetManage.tusdt.model.Warehouse;
 import com.assetManage.tusdt.model.bo.AssetListBO;
 import com.assetManage.tusdt.model.bo.WarehouseBO;
+import com.assetManage.tusdt.model.bo.WarehouseBox;
 import com.assetManage.tusdt.service.WarehouseInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -134,6 +135,36 @@ public class WarehouseController {
             return responseData;
         }
         responseData = warehouseInfoService.modifyWarehouse(userId,warehouse);
+        return responseData;
+    }
+
+    @ApiOperation(value = "获取仓库下拉框", notes = "")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "查询成功"),})
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token"),
+            }
+    )
+    @RequestMapping(value = "/warehouseBox", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData<List<WarehouseBox>> warehouseBox(HttpServletRequest request) {
+        ResponseData<List<WarehouseBox>> responseData = new ResponseData<>();
+
+        int rank = (int) request.getAttribute("jobLevel");
+        Integer userId = (Integer) request.getAttribute("id");
+        if(rank < CommonConstant.JOB_LEVEL_ADMIN) {
+            responseData.setError("权限不足");
+            return responseData;
+        }
+        List<WarehouseBox> warehouseList = warehouseInfoService.getWarehouseList();
+
+
+        if(warehouseList == null ) {
+            responseData.setError("获取失败");
+            return responseData;
+        } else {
+            responseData.set("获取成功",warehouseList);
+        }
         return responseData;
     }
 

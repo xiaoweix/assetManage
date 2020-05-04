@@ -22,9 +22,7 @@ public class AssetListBO {
 
     private Integer useType;
 
-    private Integer isVisible;
-
-    private Integer warehouseName;
+    private String warehouseName;
 
     public Integer getId() {
         return id;
@@ -74,19 +72,11 @@ public class AssetListBO {
         this.useType = useType;
     }
 
-    public Integer getIsVisible() {
-        return isVisible;
-    }
-
-    public void setIsVisible(Integer isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public Integer getWarehouseName() {
+    public String getWarehouseName() {
         return warehouseName;
     }
 
-    public void setWarehouseName(Integer warehouseName) {
+    public void setWarehouseName(String warehouseName) {
         this.warehouseName = warehouseName;
     }
 }

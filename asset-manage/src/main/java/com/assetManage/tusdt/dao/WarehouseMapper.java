@@ -5,6 +5,7 @@ import com.assetManage.tusdt.model.WarehouseExample;
 import java.util.List;
 
 import com.assetManage.tusdt.model.bo.WarehouseBO;
+import com.assetManage.tusdt.model.bo.WarehouseBox;
 import org.apache.ibatis.annotations.Param;
 
 public interface WarehouseMapper {
@@ -32,4 +33,5 @@ public interface WarehouseMapper {
 
     List<WarehouseBO> warehouseList(@Param("warehouseId") Integer warehouseId, @Param("warehouseName") String warehouseName, @Param("address") String address);
 
+    List<WarehouseBox> selectWarehouseBox();
 }
