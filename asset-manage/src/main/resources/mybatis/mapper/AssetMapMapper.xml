@@ -265,6 +265,6 @@
   <select id="getMapAsset" resultType="com.assetManage.tusdt.model.bo.AssetListBO">
     select ai.id, ai.asset_name assetName, version, status, ai.use_type useType, w.name warehouseName,purchase_date purchaseDate from asset_info ai, warehouse w
     where ai.warehouse_id = w.id
-    and ai.map_id = #{mapId,jdbcType=INTEGER},
+    and ai.map_id = #{mapId,jdbcType=INTEGER}
   </select>
 </mapper>

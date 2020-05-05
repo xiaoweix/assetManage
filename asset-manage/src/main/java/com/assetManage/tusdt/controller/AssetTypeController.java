@@ -50,7 +50,7 @@ public class AssetTypeController {
         return responseData;
     }
 
-    @ApiOperation(value = "获取类型列表", notes = "获取类型列表")
+    @ApiOperation(value = "获取类型列表下拉框", notes = "获取类型列表")
     @ApiResponses({@ApiResponse(code = Response.OK, message = "查询成功"),})
     @ApiImplicitParams(
             value = {
