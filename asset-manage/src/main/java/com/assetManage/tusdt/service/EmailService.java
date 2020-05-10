@@ -13,4 +13,6 @@ public interface EmailService {
     ResponseData<String> sendEmail(String email);
 
     ResponseData<String> checkEmailCode(String email, Integer emailCode);
+
+    boolean checkPasswordEmailCode(String email, Integer emailCode);
 }

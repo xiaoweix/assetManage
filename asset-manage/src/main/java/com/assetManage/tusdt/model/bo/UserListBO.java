@@ -12,6 +12,8 @@ public class UserListBO {
 
     private String userName;
 
+    private String email;
+
     private String telephone;
 
     private Integer jobLevel;
@@ -56,5 +58,13 @@ public class UserListBO {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

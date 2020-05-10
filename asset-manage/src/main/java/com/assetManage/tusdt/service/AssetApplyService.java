@@ -50,4 +50,6 @@ public interface AssetApplyService {
     ResponseData<String> refuseApply(Integer applyId);
 
     ResponseData<String> postApply(AssetApply assetApply);
+
+    ResponseData<String> returnAsset(Integer applyId);
 }

@@ -3,10 +3,7 @@ package com.assetManage.tusdt.service;
 import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.base.constants.Response;
 import com.assetManage.tusdt.model.User;
-import com.assetManage.tusdt.model.bo.RegisterUserBO;
-import com.assetManage.tusdt.model.bo.UserDetailBO;
-import com.assetManage.tusdt.model.bo.UserListBO;
-import com.assetManage.tusdt.model.bo.UserLoginBO;
+import com.assetManage.tusdt.model.bo.*;
 
 import java.util.List;
 
@@ -93,6 +90,9 @@ public interface UserInfoService {
      * @return
      */
     ResponseData<UserLoginBO> login(String email, String password);
+
+
+    ResponseData<String> password(PasswordBO password);
 
 
 }

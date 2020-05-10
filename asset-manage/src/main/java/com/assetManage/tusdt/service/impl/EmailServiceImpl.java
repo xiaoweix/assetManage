@@ -45,4 +45,18 @@ public class EmailServiceImpl implements EmailService {
         responseData.setOK("验证成功");
         return responseData;
     }
+
+    @Override
+    public boolean checkPasswordEmailCode(String email, Integer emailCode) {
+        ResponseData<String> responseData = new ResponseData<>();
+        if(!email.equals(checkEmail)) {
+            responseData.setError("邮箱更改，验证失败！");
+            return false;
+        }
+        if(!emailCode.equals(code)) {
+            responseData.setError("验证码错误！");
+            return false;
+        }
+        return true;
+    }
 }

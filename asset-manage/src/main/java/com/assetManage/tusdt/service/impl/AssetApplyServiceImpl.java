@@ -45,7 +45,10 @@ public class AssetApplyServiceImpl implements AssetApplyService {
         ResponseData<String> responseData = new ResponseData<>();
         AssetApply assetApply = assetApplyMapper.selectByPrimaryKey(applyId);
         AssetInfo assetInfo = assetInfoMapper.selectByPrimaryKey(assetApply.getAssetId());
-
+        if (assetInfo.getStatus().equals(CommonConstant.ASSET_INFO_STATUS_LEND)) {
+            responseData.setError("资产借用中，不可同意借用申请");
+            return responseData;
+        }
         assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_AGREE);
         assetApplyMapper.updateByPrimaryKeySelective(assetApply);
         if(assetApply.getType().equals(CommonConstant.ASSET_APPLY_LEND) && !assetInfo.getStatus().equals(CommonConstant.ASSET_INFO_STATUS_REPAIR)) {
@@ -54,6 +57,8 @@ public class AssetApplyServiceImpl implements AssetApplyService {
             assetInfo.setAssetNum(assetInfo.getAssetNum() - assetApply.getNumber());
         } else if (assetApply.getType().equals(CommonConstant.ASSET_APPLY_FEEDBACK)) {
             assetInfo.setStatus(CommonConstant.ASSET_INFO_STATUS_REPAIR);
+        } else if (assetApply.getType().equals(CommonConstant.ASSET_APPLY_BUY)) {
+
         }
         assetInfoMapper.updateByPrimaryKeySelective(assetInfo);
         responseData.setOK("操作成功");
@@ -65,6 +70,7 @@ public class AssetApplyServiceImpl implements AssetApplyService {
         ResponseData<String> responseData = new ResponseData<>();
         AssetApply assetApply = assetApplyMapper.selectByPrimaryKey(applyId);
         assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_DISAGREE);
+        assetApplyMapper.updateByPrimaryKeySelective(assetApply);
         responseData.setOK("操作成功");
         return responseData;
     }
@@ -75,6 +81,22 @@ public class AssetApplyServiceImpl implements AssetApplyService {
         assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_UNAUDITED);
         assetApplyMapper.insert(assetApply);
         responseData.setOK("提交成功");
+        return responseData;
+    }
+
+    @Override
+    public ResponseData<String> returnAsset(Integer applyId) {
+        ResponseData<String> responseData = new ResponseData<>();
+        AssetApply assetApply = assetApplyMapper.selectByPrimaryKey(applyId);
+
+        AssetInfo assetInfo = assetInfoMapper.selectByPrimaryKey(assetApply.getAssetId());
+
+        assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_COMPLETE);
+        assetInfo.setStatus(CommonConstant.ASSET_INFO_STATUS_IDLE);
+
+        assetApplyMapper.updateByPrimaryKeySelective(assetApply);
+        assetInfoMapper.updateByPrimaryKeySelective(assetInfo);
+        responseData.setOK("操作成功");
         return responseData;
     }
 }

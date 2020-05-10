@@ -27,9 +27,11 @@
     use_type useType, manage_id manageId, warehouse_id warehouseId, map_id map_id, asset_num assetNum, remarks, image1, image2, image3,
     is_delete
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultType="com.assetManage.tusdt.model.AssetInfo" parameterType="java.lang.Integer" >
     select
-    <include refid="Base_Column_List" />
+    id, asset_name assetName, type_id typeId, version, manufacture, price, status, purchase_date purchaseDate, life,
+    use_type useType, map_id map_id, asset_num assetNum, remarks, image1, image2, image3,
+    is_delete
     from asset_info
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -272,7 +274,7 @@
       AND w.name like CONCAT(CONCAT('%',#{repositoryName}),'%')
     </if>
     <if test="useType != null">
-      and ai.useType != #{useType,jdbcType=INTEGER}
+      and ai.use_type != #{useType,jdbcType=INTEGER}
     </if>
   </select>
   <select id="countAsset" resultType="java.lang.Integer">

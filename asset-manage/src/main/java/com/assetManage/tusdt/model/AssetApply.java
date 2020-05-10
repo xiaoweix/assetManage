@@ -1,5 +1,7 @@
 package com.assetManage.tusdt.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class AssetApply {
@@ -17,8 +19,10 @@ public class AssetApply {
 
     private String purpose;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     private Integer urgency;

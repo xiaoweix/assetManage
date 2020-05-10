@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +42,8 @@ public class AssetInfoServiceImpl implements AssetInfoService {
     public ResponseData<String> addAsset(Integer userId, AssetInfo assetInfo) {
         ResponseData<String> responseData = new ResponseData<>();
         assetInfo.setIsDelete(CommonConstant.DELETED_NO);
-
+        assetInfo.setManageId(userId);
+        assetInfo.setPurchaseDate(new Date());
         Integer result = assetInfoMapper.insert(assetInfo);
         if (result == 1) {
             responseData.setOK("插入成功");

@@ -57,7 +57,7 @@ public class UserInfoController {
             return responseData;
         }
         List<UserListBO> userList = userInfoService.getUserList(userId,userName,status,telephone,jobLevel);
-        if(userList == null || userList.size() == 0) {
+        if(userList == null) {
             responseData.setError("获取失败");
             return responseData;
         }

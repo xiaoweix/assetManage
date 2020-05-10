@@ -1,5 +1,7 @@
 package com.assetManage.tusdt.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class AssetInfo {
@@ -17,6 +19,7 @@ public class AssetInfo {
 
     private Integer status;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date purchaseDate;
 
     private Integer life;

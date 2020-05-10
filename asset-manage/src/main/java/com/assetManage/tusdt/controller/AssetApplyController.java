@@ -5,6 +5,7 @@ import com.assetManage.tusdt.base.constants.Response;
 import com.assetManage.tusdt.constants.CommonConstant;
 import com.assetManage.tusdt.model.AssetApply;
 import com.assetManage.tusdt.model.bo.AssetApplyListBO;
+import com.assetManage.tusdt.model.bo.AssetLogInfoDetailBO;
 import com.assetManage.tusdt.model.bo.WarehouseBO;
 import com.assetManage.tusdt.service.AssetApplyService;
 import com.github.pagehelper.PageHelper;
@@ -43,6 +44,8 @@ public class AssetApplyController {
 
         ResponseData<String> responseData = new ResponseData<>();
         int rank = (int) request.getAttribute("jobLevel");
+        Integer userId = (Integer) request.getAttribute("id");
+        assetApply.setUserId(userId);
         if(rank < CommonConstant.JOB_LEVEL_TEACHER && assetApply.getType().equals(CommonConstant.ASSET_USE_TYPE_GET)) {
             responseData.setError("学生不能申领");
             return responseData;
@@ -123,6 +126,43 @@ public class AssetApplyController {
             return responseData;
         }
         responseData = assetApplyService.refuseApply(applyId);
+        return responseData;
+    }
+    @ApiOperation(value = "已经归还", notes = "")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "操作成功"),})
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token"),
+            }
+    )
+    @RequestMapping(value = "/returnAsset", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData<String> returnAsset(HttpServletRequest request,
+                                              @RequestParam(value = "applyId",required = true) Integer applyId) {
+
+        ResponseData<String> responseData = new ResponseData<>();
+        int rank = (int) request.getAttribute("jobLevel");
+        if(rank < CommonConstant.JOB_LEVEL_ADMIN) {
+            responseData.setError("权限不足");
+            return responseData;
+        }
+        responseData = assetApplyService.returnAsset(applyId);
+        return responseData;
+    }
+
+    @ApiOperation(value = "获取资源详情", notes = "参数name可以模糊查询")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "查询成功"),})
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token"),
+            }
+    )
+    @RequestMapping(value = "/assetApplyDetail", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData<AssetLogInfoDetailBO> assetApplyDetail(@RequestParam(name = "id", required = true, defaultValue = "1") Integer id) {
+        ResponseData<AssetLogInfoDetailBO> responseData = new ResponseData<>();
+        AssetLogInfoDetailBO assetLogInfoDetailBO = assetApplyService.getApplyInfoDetail(id);
+        responseData.setOK(200,assetLogInfoDetailBO);
         return responseData;
     }
 }

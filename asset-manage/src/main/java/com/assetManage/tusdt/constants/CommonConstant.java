@@ -22,13 +22,13 @@ public class CommonConstant {
      */
     public static final String PASSWORD_HASH = "SHA-256";
     /**
-     * 用户状态 0:正常 1 正常 2未审核 Unaudited
+     * 用户状态 0:未审核 Unaudited 1 冻结  2 正常
      */
-    public static final Integer USER_STATUS_NORMAL = 0;
+    public static final Integer USER_STATUS_UNAUDITED = 0;
 
     public static final Integer USER_STATUS_ABNORMAL = 1;
 
-    public static final Integer USER_STATUS_UNAUDITED = 2;
+    public static final Integer USER_STATUS_NORMAL = 2;
 
     /**
      * 职位等级
@@ -51,26 +51,30 @@ public class CommonConstant {
     public static final Integer ASSET_USE_TYPE_GET = 1;
 
     public static final Integer ASSET_USE_TYPE_USE = 2;
-
     /**
-     * 类型1:借用、2:申领、3:采购、4:反馈
+
+     * 类型0,借用 1、领用 2、使用 ' 3采购 4反馈
      */
     public static final Integer ASSET_APPLY_LEND = 1;
 
     public static final Integer ASSET_APPLY_GET = 2;
 
-    public static final Integer ASSET_APPLY_BUY = 3;
+    public static final Integer ASSET_APPLY_USE = 3;
 
-    public static final Integer ASSET_APPLY_FEEDBACK = 4;
+    public static final Integer ASSET_APPLY_BUY = 4;
+
+    public static final Integer ASSET_APPLY_FEEDBACK = 5;
 
     /**
-     * 处理结果 0待处理,1同意,2拒绝
+     * 处理结果 0待处理,1同意,2拒绝  3complete
      */
     public static final Integer ASSET_APPLY_RESULT_UNAUDITED = 0;
 
     public static final Integer ASSET_APPLY_RESULT_AGREE = 1;
 
     public static final Integer ASSET_APPLY_RESULT_DISAGREE = 2;
+
+    public static final Integer ASSET_APPLY_RESULT_COMPLETE = 3;
 
     /**
      * 资源状态

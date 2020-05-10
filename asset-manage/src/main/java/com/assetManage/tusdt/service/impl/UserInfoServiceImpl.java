@@ -5,11 +5,9 @@ import com.assetManage.tusdt.constants.CommonConstant;
 import com.assetManage.tusdt.dao.AssetApplyMapper;
 import com.assetManage.tusdt.dao.UserMapper;
 import com.assetManage.tusdt.model.User;
-import com.assetManage.tusdt.model.bo.RegisterUserBO;
-import com.assetManage.tusdt.model.bo.UserDetailBO;
-import com.assetManage.tusdt.model.bo.UserListBO;
-import com.assetManage.tusdt.model.bo.UserLoginBO;
+import com.assetManage.tusdt.model.bo.*;
 import com.assetManage.tusdt.service.AssetLogInfoService;
+import com.assetManage.tusdt.service.EmailService;
 import com.assetManage.tusdt.service.UserInfoService;
 import com.assetManage.tusdt.utils.HashUtils;
 import com.assetManage.tusdt.utils.JwtUtils;
@@ -37,6 +35,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
     private AssetLogInfoService assetLogInfoService;
+
+    @Resource
+    private EmailService emailService;
 
 
     @Override
@@ -110,12 +111,21 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public ResponseData<String> modifyUserInfo(User user) {
         ResponseData<String> responseData = new ResponseData<>();
-        User checkUserEmail = userMapper.loginByEmail(user.getEmail());
+        User oldUser = userMapper.selectByPrimaryKey(user.getId());
 
-        if(checkUserEmail != null) {
-            responseData.setError("该用户邮箱已存在！");
+        if(user.getUserName() != null && !user.getUserName().equals(oldUser.getUserName())) {
+            responseData.setError("不能修改用户名！");
             return responseData;
         }
+        if(user.getEmail() != null && !user.getEmail().equals(oldUser.getEmail())) {
+            responseData.setError("不能修改邮箱！");
+            return responseData;
+        }
+        if (user.getPassword() != null) {
+            String hsahPassword = HashUtils.hashEncrypt(user.getPassword(),CommonConstant.PASSWORD_HASH);
+            user.setPassword(hsahPassword);
+        }
+
         Integer result = userMapper.updateByPrimaryKeySelective(user);
         if (result == 1) {
             responseData.setOK("修改成功");
@@ -159,9 +169,17 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserLoginBO userLoginBO = new UserLoginBO();
         String hashPassword = HashUtils.hashEncrypt(password, CommonConstant.PASSWORD_HASH);
         User user = userMapper.loginByEmail(email);
+        if(user == null ) {
+            responseData.setError("用户不存在");
+            return responseData;
+        }
         userLoginBO.setCode(user.getJobLevel().toString());
         if(user.getStatus().equals(CommonConstant.USER_STATUS_ABNORMAL)) {
             responseData.setError("账号冻结 请联系管理员");
+            return responseData;
+        }
+        if(user.getStatus().equals(CommonConstant.USER_STATUS_UNAUDITED)) {
+            responseData.setError("账号未审核 请联系管理员审核");
             return responseData;
         }
         if(hashPassword.equals(user.getPassword())) {
@@ -171,6 +189,26 @@ public class UserInfoServiceImpl implements UserInfoService {
             return responseData;
         }
         responseData.setOK("登陆成功",userLoginBO);
+        return responseData;
+    }
+
+    @Override
+    public ResponseData<String> password(PasswordBO passwordBO) {
+        ResponseData<String> responseData = new ResponseData<>();
+        if (emailService.checkPasswordEmailCode(passwordBO.getEmail(),passwordBO.getCode())) {
+            User user = userMapper.loginByEmail(passwordBO.getEmail());
+            if(user == null) {
+                responseData.setError("没有该用户");
+                return responseData;
+            }
+            String hashPassword = HashUtils.hashEncrypt(passwordBO.getPassword(), CommonConstant.PASSWORD_HASH);
+
+            user.setPassword(hashPassword);
+            userMapper.updateByPrimaryKeySelective(user);
+            responseData.setOK("更改成功");
+        } else {
+            responseData.setError("验证码错误");
+        }
         return responseData;
     }
 }

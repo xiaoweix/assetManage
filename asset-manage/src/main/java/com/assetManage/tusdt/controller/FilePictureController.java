@@ -23,7 +23,7 @@ import java.util.List;
  * Date: 2020-04-02
  * Time: 01:31
  */
-@Api(protocols = "http,https", tags = {"AssetType"}, value = "/asset_manage/assetType",description = "图片文件上传显示接口")
+@Api(protocols = "http,https", tags = {"file"}, value = "/asset_manage/file",description = "图片文件上传显示接口")
 @RestController
 @RequestMapping(value = "/asset_manage/file")
 public class FilePictureController {

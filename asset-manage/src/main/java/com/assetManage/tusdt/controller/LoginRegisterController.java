@@ -3,6 +3,7 @@ package com.assetManage.tusdt.controller;
 import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.base.constants.Response;
 import com.assetManage.tusdt.model.User;
+import com.assetManage.tusdt.model.bo.PasswordBO;
 import com.assetManage.tusdt.model.bo.RegisterUserBO;
 import com.assetManage.tusdt.model.bo.UserLoginBO;
 import com.assetManage.tusdt.service.UserInfoService;
@@ -47,6 +48,16 @@ public class LoginRegisterController {
 
 
         return userInfoService.login(email,password);
+    }
+
+    @ApiOperation(value = "修改密码", notes = "修改密码")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "注册信息提交成功"),})
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<String> password(@RequestBody PasswordBO password) {
+
+
+        return userInfoService.password(password);
     }
 
 }
