@@ -36,4 +36,6 @@ public interface AssetMapMapper {
     List<AssetMap> allMapList();
 
     List<AssetListBO> getMapAsset(Integer mapId);
+
+    List<Integer> getAssetLocation(@Param("assetId") Integer assetId, @Param("assetName") String assetName);
 }

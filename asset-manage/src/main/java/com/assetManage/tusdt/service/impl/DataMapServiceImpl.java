@@ -44,4 +44,9 @@ public class DataMapServiceImpl implements DataMapService {
     public List<AssetListBO> getByMapId(Integer mapId) {
         return assetMapMapper.getMapAsset(mapId);
     }
+
+    @Override
+    public List<Integer> getAssetLocation(Integer assetId, String assetName) {
+        return assetMapMapper.getAssetLocation(assetId,assetName);
+    }
 }

@@ -267,4 +267,13 @@
     where ai.warehouse_id = w.id
     and ai.map_id = #{mapId,jdbcType=INTEGER}
   </select>
+  <select id="getAssetLocation" resultType="java.lang.Integer">
+    select  ai.map_id  from asset_info ai where 1>0
+    <if test="assetId != null">
+      and ai.id =  #{assetId,jdbcType=INTEGER}
+    </if>
+    <if test="assetName != null">
+      and ai.asset_name like CONCAT(CONCAT('%',#{assetName}),'%')
+    </if>
+  </select>
 </mapper>

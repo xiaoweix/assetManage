@@ -257,7 +257,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="warehouseList" resultType="com.assetManage.tusdt.model.bo.WarehouseBO">
-    select w.id id, w.name name, w.address address, w.create_time createTime, u.user_name manageName from warehouse w, user u
+    select w.id id, w.name name, w.address address,date_format(w.create_time, '%Y-%m-%d %H:%i:%s')  createTime, u.user_name manageName from warehouse w, user u
     where 1>0
     and w.is_delete = 0
     and u.id = w.manage_id

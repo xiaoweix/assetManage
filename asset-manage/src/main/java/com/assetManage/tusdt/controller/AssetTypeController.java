@@ -36,7 +36,7 @@ public class AssetTypeController {
     )
     @RequestMapping(value = "/addAssetType", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> addAssetType(HttpServletRequest request, @RequestBody String assetName) {
+    public ResponseData<String> addAssetType(HttpServletRequest request, @RequestBody AssetType assetType) {
 
         ResponseData<String> responseData = new ResponseData<>();
         int rank = (int) request.getAttribute("jobLevel");
@@ -45,7 +45,7 @@ public class AssetTypeController {
             responseData.setError("权限不足");
             return responseData;
         }
-        responseData = assetTypeService.addAssetType(assetName);
+        responseData = assetTypeService.addAssetType(assetType);
 
         return responseData;
     }

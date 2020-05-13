@@ -56,6 +56,9 @@ public class UserInfoController {
             responseData.setError("权限不足，仅管理员可见");
             return responseData;
         }
+        if (telephone != null && telephone.equals("")) {
+            telephone = null;
+        }
         List<UserListBO> userList = userInfoService.getUserList(userId,userName,status,telephone,jobLevel);
         if(userList == null) {
             responseData.setError("获取失败");

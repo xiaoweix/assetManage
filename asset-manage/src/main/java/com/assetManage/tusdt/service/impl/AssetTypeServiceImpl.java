@@ -26,10 +26,8 @@ public class AssetTypeServiceImpl implements AssetTypeService {
     private AssetTypeMapper assetTypeMapper;
 
     @Override
-    public ResponseData<String> addAssetType(String assetName) {
+    public ResponseData<String> addAssetType(AssetType assetType) {
         ResponseData<String> response = new ResponseData<>();
-        AssetType assetType = new AssetType();
-        assetType.setTypeName(assetName);
         assetType.setCreateTime(new Date());
         assetType.setIsDelete(CommonConstant.DELETED_NO);
         Integer result = assetTypeMapper.insert(assetType);

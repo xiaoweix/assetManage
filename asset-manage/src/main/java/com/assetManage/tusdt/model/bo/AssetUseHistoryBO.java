@@ -18,9 +18,11 @@ public class AssetUseHistoryBO {
 
     private String userName;
 
-    private Date startTime;
+    private String startTime;
 
     private Integer status;
+
+    private Integer result;
 
     public Integer getId() {
         return id;
@@ -46,11 +48,11 @@ public class AssetUseHistoryBO {
         this.userName = userName;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
@@ -68,5 +70,13 @@ public class AssetUseHistoryBO {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
     }
 }
