@@ -66,7 +66,7 @@ public class CommonConstant {
     public static final Integer ASSET_APPLY_FEEDBACK = 5;
 
     /**
-     * 处理结果 0待处理,1同意,2拒绝  3complete
+     * 处理结果 0待处理,1同意,2拒绝  3归还
      */
     public static final Integer ASSET_APPLY_RESULT_UNAUDITED = 0;
 

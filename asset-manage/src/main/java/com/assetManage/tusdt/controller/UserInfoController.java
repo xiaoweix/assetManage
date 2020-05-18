@@ -149,7 +149,7 @@ public class UserInfoController {
 
         ResponseData<User> responseData = new ResponseData<>();
         int rank = (int) request.getAttribute("jobLevel");
-        if(rank < CommonConstant.JOB_LEVEL_SUPER_ADMIN) {
+        if(rank < CommonConstant.JOB_LEVEL_ADMIN) {
             responseData.setError("权限不足");
             return responseData;
         }
