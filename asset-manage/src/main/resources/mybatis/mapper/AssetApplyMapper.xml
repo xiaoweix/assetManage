@@ -396,6 +396,7 @@
     <if test="telephone != null" >
       and u.telephone = #{telephone,jdbcType=VARCHAR}
     </if>
+    order by aa.start_time desc
   </select>
   <select id="getAssetUseHistory" resultType="com.assetManage.tusdt.model.bo.AssetUseHistoryBO">
     select aa.id, ai.asset_name assetName ,aa.type applyType, u.user_name userName,date_format(aa.start_time, '%Y-%m-%d %H:%i:%s') startTime,aa.result result,ai.status status from  asset_apply aa, asset_info ai, user u
