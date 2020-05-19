@@ -18,11 +18,13 @@ public class AssetListBO {
 
     private Integer status;
 
-    private Date purchaseDate;
+    private String purchaseDate;
 
     private Integer useType;
 
     private String warehouseName;
+
+    private Integer assetNum;
 
     public Integer getId() {
         return id;
@@ -56,11 +58,11 @@ public class AssetListBO {
         this.status = status;
     }
 
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
@@ -78,5 +80,13 @@ public class AssetListBO {
 
     public void setWarehouseName(String warehouseName) {
         this.warehouseName = warehouseName;
+    }
+
+    public Integer getAssetNum() {
+        return assetNum;
+    }
+
+    public void setAssetNum(Integer assetNum) {
+        this.assetNum = assetNum;
     }
 }

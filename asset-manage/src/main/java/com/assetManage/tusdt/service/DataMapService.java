@@ -16,4 +16,6 @@ public interface DataMapService {
     List<AssetMap> getAllMap();
 
     List<AssetListBO> getByMapId(Integer mapId);
+
+    List<Integer> getAssetLocation(Integer assetId, String assetName);
 }

@@ -195,7 +195,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getOperLogList" resultType="com.assetManage.tusdt.model.bo.OperLogListBO">
-    select ol.id, ol.user_id userId, u.user_name userName, ol.remarks, ol.start_time startTime from oper_log ol, user u
+    select ol.id, ol.user_id userId, u.user_name userName, ol.remarks,date_format(ol.start_time, '%Y-%m-%d %H:%i:%s') startTime from oper_log ol, user u
     where ol.user_id = u.id
     <if test="userName != null">
       and u.user_name like CONCAT(CONCAT('%',#{userName}),'%')

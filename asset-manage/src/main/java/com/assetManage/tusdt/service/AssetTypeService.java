@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface AssetTypeService {
 
-    ResponseData<String> addAssetType(String assetName);
+    ResponseData<String> addAssetType(AssetType assetType);
 
     List<AssetType> getAssetTypeList();
 

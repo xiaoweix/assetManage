@@ -22,7 +22,7 @@ public class AssetApplyListBO {
 
     private String assetName;
 
-    private Date startTime;
+    private String startTime;
 
     private Integer urgency;
 
@@ -76,11 +76,11 @@ public class AssetApplyListBO {
         this.assetName = assetName;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 

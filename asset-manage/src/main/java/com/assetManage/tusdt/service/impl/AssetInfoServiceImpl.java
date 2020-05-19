@@ -5,8 +5,10 @@ import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.constants.CommonConstant;
 import com.assetManage.tusdt.dao.AssetApplyMapper;
 import com.assetManage.tusdt.dao.AssetInfoMapper;
+import com.assetManage.tusdt.dao.WarehouseMapper;
 import com.assetManage.tusdt.model.AssetApply;
 import com.assetManage.tusdt.model.AssetInfo;
+import com.assetManage.tusdt.model.Warehouse;
 import com.assetManage.tusdt.model.bo.AssetListBO;
 import com.assetManage.tusdt.model.bo.AssetUseHistoryBO;
 import com.assetManage.tusdt.service.AssetInfoService;
@@ -33,6 +35,9 @@ public class AssetInfoServiceImpl implements AssetInfoService {
     @Autowired
     private AssetApplyMapper assetApplyMapper;
 
+    @Autowired
+    private WarehouseMapper warehouseMapper;
+
     @Resource
     private AssetLogInfoService assetLogInfoService;
 
@@ -44,6 +49,8 @@ public class AssetInfoServiceImpl implements AssetInfoService {
         assetInfo.setIsDelete(CommonConstant.DELETED_NO);
         assetInfo.setManageId(userId);
         assetInfo.setPurchaseDate(new Date());
+        Warehouse warehouse = warehouseMapper.selectByPrimaryKey(assetInfo.getWarehouseId());
+        assetInfo.setMapId(warehouse.getMapId());
         Integer result = assetInfoMapper.insert(assetInfo);
         if (result == 1) {
             responseData.setOK("插入成功");

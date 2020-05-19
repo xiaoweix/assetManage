@@ -18,7 +18,7 @@ public class OperLogListBO {
 
     private String remarks;
 
-    private Date startTime;
+    private String startTime;
 
     public Integer getId() {
         return id;
@@ -52,11 +52,11 @@ public class OperLogListBO {
         this.remarks = remarks;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 }

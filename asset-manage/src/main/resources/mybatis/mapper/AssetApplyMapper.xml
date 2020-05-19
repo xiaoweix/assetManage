@@ -370,14 +370,14 @@
   </update>
   <select id="selectApplyDetail" resultType="com.assetManage.tusdt.model.bo.AssetLogInfoDetailBO">
     select aa.type, aa.number,u.user_name userName, aa.asset_id assetId,ai.asset_name assetName,ai.version assetVersion, aa.address, aa.purpose,
-    aa.start_time startTime,aa.end_time endTime,aa.urgency, aa.remarks, aa.result, aa.image1, aa.image2, aa.image3
+    date_format(aa.start_time, '%Y-%m-%d %H:%i:%s') startTime, date_format(aa.end_time, '%Y-%m-%d %H:%i:%s') endTime,aa.urgency, aa.remarks, aa.result, aa.image1, aa.image2, aa.image3
     from asset_apply aa, asset_info ai, user u
     where aa.user_id = u.id
     and aa.asset_id = ai.id
     and aa.id = #{id,jdbcType=INTEGER}
   </select>
   <select id="getAssetApplyList" resultType="com.assetManage.tusdt.model.bo.AssetApplyListBO">
-    select aa.id, aa.type, aa.number,u.user_name userName, aa.asset_id assetId, ai.asset_name assetName,aa.start_time startTime, urgency, result
+    select aa.id, aa.type, aa.number,u.user_name userName, aa.asset_id assetId, ai.asset_name assetName,date_format(aa.start_time, '%Y-%m-%d %H:%i:%s') startTime, urgency, result
     from asset_apply aa, asset_info ai, user u
     where aa.user_id = u.id
     and aa.asset_id = ai.id
@@ -398,7 +398,7 @@
     </if>
   </select>
   <select id="getAssetUseHistory" resultType="com.assetManage.tusdt.model.bo.AssetUseHistoryBO">
-    select aa.id, ai.asset_name assetName ,aa.type applyType, u.user_name userName, aa.start_time startTime,aa.result status from  asset_apply aa, asset_info ai, user u
+    select aa.id, ai.asset_name assetName ,aa.type applyType, u.user_name userName,date_format(aa.start_time, '%Y-%m-%d %H:%i:%s') startTime,aa.result result,ai.status status from  asset_apply aa, asset_info ai, user u
     where aa.asset_id = ai.id
     and aa.user_id = u.id
     <if test="assetId != null" >

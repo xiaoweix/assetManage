@@ -259,7 +259,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAssetList" resultType="com.assetManage.tusdt.model.bo.AssetListBO">
-    select ai.id, ai.asset_name assetName, version, status, ai.use_type useType, w.name warehouseName,purchase_date purchaseDate from asset_info ai, warehouse w
+    select ai.id, ai.asset_name assetName, version, status, ai.use_type useType, w.name warehouseName,date_format(purchase_date, '%Y-%m-%d %H:%i:%s') purchaseDate,ai.asset_num assetNum from asset_info ai, warehouse w
     where ai.warehouse_id = w.id
     <if test="assetId != null" >
       and ai.id = #{assetId,jdbcType=INTEGER}

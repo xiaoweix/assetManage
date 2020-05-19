@@ -102,4 +102,29 @@ public class DataMapController {
         responseData.set("获取成功",mapListBOList);
         return responseData;
     }
+    @ApiOperation(value = "查询该块地图有哪些资源", notes = "获取资源")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "查询成功"),})
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token"),
+            }
+    )
+    @RequestMapping(value = "/getAssetLocation", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData<List<Integer>> getAssetLocation(HttpServletRequest request,
+                                                        @RequestParam(value = "assetId",required = false) Integer assetId,
+                                                        @RequestParam(value = "assetName",required = false) String assetName) {
+
+        ResponseData<List<Integer>> responseData = new ResponseData<>();
+        if (assetId == null && assetName == null) {
+            responseData.setError("查询条件不能为空");
+            return responseData;
+        }
+        List<Integer> mapListBOList = dataMapService.getAssetLocation(assetId, assetName);
+        if(mapListBOList == null) {
+            responseData.setError("获取失败");
+        }
+        responseData.set("获取成功",mapListBOList);
+        return responseData;
+    }
 }

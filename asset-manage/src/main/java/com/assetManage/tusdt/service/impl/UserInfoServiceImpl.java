@@ -112,7 +112,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     public ResponseData<String> modifyUserInfo(User user) {
         ResponseData<String> responseData = new ResponseData<>();
         User oldUser = userMapper.selectByPrimaryKey(user.getId());
-
+        if (oldUser == null) {
+            responseData.setError("用户不存在");
+            return responseData;
+        }
         if(user.getUserName() != null && !user.getUserName().equals(oldUser.getUserName())) {
             responseData.setError("不能修改用户名！");
             return responseData;
@@ -122,8 +125,8 @@ public class UserInfoServiceImpl implements UserInfoService {
             return responseData;
         }
         if (user.getPassword() != null) {
-            String hsahPassword = HashUtils.hashEncrypt(user.getPassword(),CommonConstant.PASSWORD_HASH);
-            user.setPassword(hsahPassword);
+            String hashPassword = HashUtils.hashEncrypt(user.getPassword(),CommonConstant.PASSWORD_HASH);
+            user.setPassword(hashPassword);
         }
 
         Integer result = userMapper.updateByPrimaryKeySelective(user);

@@ -53,7 +53,11 @@ public class CommonConstant {
     public static final Integer ASSET_USE_TYPE_USE = 2;
     /**
 
+<<<<<<< HEAD
      * 类型1,借用 2、领用 3、使用 ' 4采购 5反馈
+=======
+     * 类型1,借用 2、领用 3、使用 ' 4采购 5反馈  6归还
+>>>>>>> c00e558d417e783666ddcd0be0f62c5c9ec47118
      */
     public static final Integer ASSET_APPLY_LEND = 1;
 
@@ -64,6 +68,8 @@ public class CommonConstant {
     public static final Integer ASSET_APPLY_BUY = 4;
 
     public static final Integer ASSET_APPLY_FEEDBACK = 5;
+
+    public static final Integer ASSET_APPLY_RETURN = 6;
 
     /**
      * 处理结果 0待处理,1同意,2拒绝  3归还
