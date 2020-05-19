@@ -22,5 +22,5 @@ logging:
         mapper : debug
 
 cbs:
-  imagesPath: /root/java/assetManage/picture
+  imagesPath: /Users/sera/Desktop/program/cfams/upload-img
 #  imagesPath: C://Users//Admin//Desktop//javaProject//picture
