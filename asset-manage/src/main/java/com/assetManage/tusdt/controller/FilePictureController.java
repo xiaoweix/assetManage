@@ -44,7 +44,7 @@ public class FilePictureController {
         ResponseData<List<String>> responseData = new ResponseData<>();
         List<String> filesPath = new ArrayList<>();
 
-        String parentDirPath = theSetDir.substring(theSetDir.indexOf(':')+1, theSetDir.length()); //通过设置的那个字符串获得存放图片的目录路径
+        String parentDirPath = theSetDir; //通过设置的那个字符串获得存放图片的目录路径
 
         List<MultipartFile> files = ((MultipartHttpServletRequest)request).getFiles("file");
         if(files.size()>3) {
@@ -54,17 +54,19 @@ public class FilePictureController {
         File parentDir = new File(parentDirPath);
         if(!parentDir.exists()) //如果那个目录不存在先创建目录
         {
-            parentDir.mkdir();
+            parentDir.mkdirs();
         }
         for (MultipartFile file : files) {
             String fileName = file.getOriginalFilename();
             Date date = new Date();
-            String filePath = parentDirPath + "/" + date.getTime() + fileName;
+            String filePath = parentDirPath + date.getTime() + "+" + fileName;
             File fileTemp = new File(filePath);
             try {
                 file.transferTo(fileTemp);
             } catch (IOException e) {
+                responseData.setError("上传失败");
                 e.printStackTrace();
+                return responseData;
             }
             filesPath.add(filePath);
         }
@@ -72,4 +74,7 @@ public class FilePictureController {
         return responseData;
     }
 
+    public static void main(String[] args) {
+
+    }
 }

@@ -274,7 +274,7 @@
       AND w.name like CONCAT(CONCAT('%',#{repositoryName}),'%')
     </if>
     <if test="useType != null">
-      and ai.use_type != #{useType,jdbcType=INTEGER}
+      and  #{useType,jdbcType=INTEGER} >= ai.use_type
     </if>
   </select>
   <select id="countAsset" resultType="java.lang.Integer">

@@ -95,4 +95,10 @@ public interface UserInfoService {
     ResponseData<String> password(PasswordBO password);
 
 
+    ResponseData<String> agreeUser(Integer id);
+
+
+    ResponseData<String> disagreeUser(Integer id);
+
+
 }

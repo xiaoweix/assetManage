@@ -214,4 +214,42 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         return responseData;
     }
+
+    @Override
+    public ResponseData<String> agreeUser(Integer id) {
+        ResponseData<String> responseData = new ResponseData<>();
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user == null) {
+            responseData.setError("用户不存在");
+            return responseData;
+        }
+        user.setStatus(CommonConstant.USER_STATUS_NORMAL);
+
+        Integer result = userMapper.updateByPrimaryKeySelective(user);
+        if (result == 1) {
+            responseData.setOK("修改成功");
+        } else {
+            responseData.setError("修改失败");
+        }
+        return responseData;
+    }
+
+    @Override
+    public ResponseData<String> disagreeUser(Integer id) {
+        ResponseData<String> responseData = new ResponseData<>();
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user == null) {
+            responseData.setError("用户不存在");
+            return responseData;
+        }
+        user.setStatus(CommonConstant.USER_STATUS_ABNORMAL);
+
+        Integer result = userMapper.updateByPrimaryKeySelective(user);
+        if (result == 1) {
+            responseData.setOK("修改成功");
+        } else {
+            responseData.setError("修改失败");
+        }
+        return responseData;
+    }
 }

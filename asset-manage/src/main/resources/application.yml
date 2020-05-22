@@ -1,5 +1,5 @@
 server:
-  port: 8092
+  port: 8082
 
 spring:
   datasource:
@@ -22,5 +22,6 @@ logging:
         mapper : debug
 
 cbs:
-  imagesPath: /Users/sera/Desktop/program/cfams/upload-img
-#  imagesPath: C://Users//Admin//Desktop//javaProject//picture
+#  imagesPath: /Users/sera/Desktop/program/cfams/upload-img/
+#  imagesPath: /root/java/assetManage/picture/
+  imagesPath: C:/Users/Admin/Desktop/javaProject/picture/

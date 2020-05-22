@@ -46,11 +46,11 @@ public class CommonConstant {
     /**
      * 是否能借用 0,借用 1、领用 2、使用 '
      */
-    public static final Integer ASSET_USE_TYPE_LEND = 0;
+    public static final Integer ASSET_USE_TYPE_LEND = 1;
 
-    public static final Integer ASSET_USE_TYPE_GET = 1;
+    public static final Integer ASSET_USE_TYPE_GET = 2;
 
-    public static final Integer ASSET_USE_TYPE_USE = 2;
+    public static final Integer ASSET_USE_TYPE_USE = 3;
     /**
 
 <<<<<<< HEAD

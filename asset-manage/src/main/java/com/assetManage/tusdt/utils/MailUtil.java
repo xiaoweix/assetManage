@@ -53,7 +53,7 @@ public class MailUtil {
             Transport transport = session.getTransport("smtp");
             // 9.设置火箭的发射目标
             //transport.connect("smtp.163.com", "biaobaiqiangqiang@163.com", "biaobaiqiang123");
-            transport.connect("smtp.qq.com", "tus_asset_manage@qq.com", "nkpxcloxbtpxdjai");
+            transport.connect("smtp.qq.com", "tus_asset_manage@qq.com", "jlvouopayywtdjeb");
             // 10.发送
             transport.sendMessage(message, message.getAllRecipients());
 

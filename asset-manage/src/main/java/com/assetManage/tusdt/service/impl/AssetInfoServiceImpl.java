@@ -48,6 +48,7 @@ public class AssetInfoServiceImpl implements AssetInfoService {
         ResponseData<String> responseData = new ResponseData<>();
         assetInfo.setIsDelete(CommonConstant.DELETED_NO);
         assetInfo.setManageId(userId);
+        assetInfo.setStatus(CommonConstant.ASSET_INFO_STATUS_IDLE);
         assetInfo.setPurchaseDate(new Date());
         Warehouse warehouse = warehouseMapper.selectByPrimaryKey(assetInfo.getWarehouseId());
         assetInfo.setMapId(warehouse.getMapId());

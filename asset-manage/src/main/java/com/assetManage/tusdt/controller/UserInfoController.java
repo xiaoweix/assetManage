@@ -177,5 +177,52 @@ public class UserInfoController {
         Integer userId = (Integer) request.getAttribute("id");
         return userInfoService.getPersonnelDetail(userId);
     }
+
+    @ApiOperation(value = "同意用户申请", notes = "")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "操作成功"),})
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token"),
+            }
+    )
+    @RequestMapping(value = "/agreeUser", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData<String> agreeUser(HttpServletRequest request,
+                                           @RequestParam(value = "userId",required = true) Integer userId) {
+
+        ResponseData<String> responseData = new ResponseData<>();
+        Integer adminId = (Integer) request.getAttribute("id");
+        int rank = (int) request.getAttribute("jobLevel");
+        if(rank < CommonConstant.JOB_LEVEL_SUPER_ADMIN) {
+            responseData.setError("权限不足");
+            return responseData;
+        }
+        responseData = userInfoService.agreeUser(userId);
+        return responseData;
+    }
+
+    @ApiOperation(value = "不同意用户申请", notes = "")
+    @ApiResponses({@ApiResponse(code = Response.OK, message = "操作成功"),})
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token"),
+            }
+    )
+    @RequestMapping(value = "/disagreeUser", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData<String> disagreeUser(HttpServletRequest request,
+                                           @RequestParam(value = "userId",required = true) Integer userId) {
+
+        ResponseData<String> responseData = new ResponseData<>();
+        Integer adminId = (Integer) request.getAttribute("id");
+        int rank = (int) request.getAttribute("jobLevel");
+        if(rank < CommonConstant.JOB_LEVEL_SUPER_ADMIN) {
+            responseData.setError("权限不足");
+            return responseData;
+        }
+        responseData = userInfoService.disagreeUser(userId);
+        return responseData;
+    }
+
 }
 

@@ -76,8 +76,14 @@ public class AssetInfoController {
         ResponseData<List<AssetListBO>> responseData = new ResponseData<>();
         Integer useType = null;
         int rank = (int) request.getAttribute("jobLevel");
-        if(rank < CommonConstant.JOB_LEVEL_ADMIN) {
+        if(rank >= CommonConstant.JOB_LEVEL_ADMIN) {
             useType = CommonConstant.ASSET_USE_TYPE_USE;
+        }
+        if(rank == CommonConstant.JOB_LEVEL_STUDENT) {
+            useType = CommonConstant.ASSET_USE_TYPE_LEND;
+        }
+        if(rank == CommonConstant.JOB_LEVEL_TEACHER) {
+            useType = CommonConstant.ASSET_USE_TYPE_GET;
         }
         List<AssetListBO> assetList = assetInfoService.getAssetList(currPage, pageSize, assetId, assetName, warehouseName, status, useType);
         if(assetList == null ) {
