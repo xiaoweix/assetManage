@@ -4,6 +4,7 @@ import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.base.constants.Response;
 import com.assetManage.tusdt.constants.CommonConstant;
 import com.assetManage.tusdt.model.AssetApply;
+import com.assetManage.tusdt.model.bo.AssetApplyBO;
 import com.assetManage.tusdt.model.bo.AssetApplyListBO;
 import com.assetManage.tusdt.model.bo.AssetLogInfoDetailBO;
 import com.assetManage.tusdt.model.bo.WarehouseBO;
@@ -40,7 +41,7 @@ public class AssetApplyController {
     )
     @RequestMapping(value = "/postApply", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> postApply(HttpServletRequest request,@RequestBody AssetApply assetApply) {
+    public ResponseData<String> postApply(HttpServletRequest request,@RequestBody AssetApplyBO assetApply) {
 
         ResponseData<String> responseData = new ResponseData<>();
         int rank = (int) request.getAttribute("jobLevel");

@@ -52,12 +52,7 @@ public class CommonConstant {
 
     public static final Integer ASSET_USE_TYPE_USE = 3;
     /**
-
-<<<<<<< HEAD
-     * 类型1,借用 2、领用 3、使用 ' 4采购 5反馈
-=======
-     * 类型1,借用 2、领用 3、使用 ' 4采购 5反馈  6归还
->>>>>>> c00e558d417e783666ddcd0be0f62c5c9ec47118
+     * 类型1,借用 2、领用 3、使用 ' 4采购  5反馈  6归还
      */
     public static final Integer ASSET_APPLY_LEND = 1;
 

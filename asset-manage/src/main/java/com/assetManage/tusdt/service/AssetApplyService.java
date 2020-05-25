@@ -2,6 +2,7 @@ package com.assetManage.tusdt.service;
 
 import com.assetManage.tusdt.base.common.ResponseData;
 import com.assetManage.tusdt.model.AssetApply;
+import com.assetManage.tusdt.model.bo.AssetApplyBO;
 import com.assetManage.tusdt.model.bo.AssetLogInfoDetailBO;
 import com.assetManage.tusdt.model.bo.AssetApplyListBO;
 
@@ -49,7 +50,7 @@ public interface AssetApplyService {
      */
     ResponseData<String> refuseApply(Integer applyId);
 
-    ResponseData<String> postApply(AssetApply assetApply);
+    ResponseData<String> postApply(AssetApplyBO assetApply);
 
     ResponseData<String> returnAsset(Integer applyId);
 }

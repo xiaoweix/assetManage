@@ -6,12 +6,14 @@ import com.assetManage.tusdt.dao.AssetApplyMapper;
 import com.assetManage.tusdt.dao.AssetInfoMapper;
 import com.assetManage.tusdt.model.AssetApply;
 import com.assetManage.tusdt.model.AssetInfo;
+import com.assetManage.tusdt.model.bo.AssetApplyBO;
 import com.assetManage.tusdt.model.bo.AssetLogInfoDetailBO;
 import com.assetManage.tusdt.model.bo.AssetApplyListBO;
 import com.assetManage.tusdt.service.AssetApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,9 +78,26 @@ public class AssetApplyServiceImpl implements AssetApplyService {
     }
 
     @Override
-    public ResponseData<String> postApply(AssetApply assetApply) {
+    public ResponseData<String> postApply(AssetApplyBO assetApply) {
         ResponseData<String> responseData = new ResponseData<>();
-        assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_UNAUDITED);
+        AssetInfo assetInfo = assetInfoMapper.selectByPrimaryKey(assetApply.getAssetId());
+        if (!assetInfo.getStatus().equals(CommonConstant.ASSET_INFO_STATUS_IDLE)) {
+            responseData.setError("资产使用或维修中，无法申请");
+            return responseData;
+        }
+        if (assetApply.getType().equals(CommonConstant.ASSET_USE_TYPE_GET)) {
+            assetApply.setStartTime(new Date());
+        }
+        if (assetApply.getType().equals(CommonConstant.ASSET_USE_TYPE_USE)) {
+
+            assetInfo.setMapId(assetApply.getMapId());
+            assetInfo.setStatus(CommonConstant.ASSET_INFO_STATUS_USING);
+            assetInfoMapper.updateByPrimaryKeySelective(assetInfo);
+            assetApply.setStartTime(new Date());
+            assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_COMPLETE);
+        } else {
+            assetApply.setResult(CommonConstant.ASSET_APPLY_RESULT_UNAUDITED);
+        }
         assetApplyMapper.insert(assetApply);
         responseData.setOK("提交成功");
         return responseData;
