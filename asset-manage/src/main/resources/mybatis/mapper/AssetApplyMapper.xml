@@ -96,7 +96,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from asset_apply
     where id = #{id,jdbcType=INTEGER}
@@ -284,20 +284,20 @@
   <update id="updateByExample" parameterType="map" >
     update asset_apply
     set id = #{record.id,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER},
-      number = #{record.number,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      asset_id = #{record.assetId,jdbcType=INTEGER},
-      address = #{record.address,jdbcType=VARCHAR},
-      purpose = #{record.purpose,jdbcType=VARCHAR},
-      start_time = #{record.startTime,jdbcType=TIMESTAMP},
-      end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      urgency = #{record.urgency,jdbcType=INTEGER},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
-      result = #{record.result,jdbcType=INTEGER},
-      image1 = #{record.image1,jdbcType=VARCHAR},
-      image2 = #{record.image2,jdbcType=VARCHAR},
-      image3 = #{record.image3,jdbcType=VARCHAR}
+    type = #{record.type,jdbcType=INTEGER},
+    number = #{record.number,jdbcType=INTEGER},
+    user_id = #{record.userId,jdbcType=INTEGER},
+    asset_id = #{record.assetId,jdbcType=INTEGER},
+    address = #{record.address,jdbcType=VARCHAR},
+    purpose = #{record.purpose,jdbcType=VARCHAR},
+    start_time = #{record.startTime,jdbcType=TIMESTAMP},
+    end_time = #{record.endTime,jdbcType=TIMESTAMP},
+    urgency = #{record.urgency,jdbcType=INTEGER},
+    remarks = #{record.remarks,jdbcType=VARCHAR},
+    result = #{record.result,jdbcType=INTEGER},
+    image1 = #{record.image1,jdbcType=VARCHAR},
+    image2 = #{record.image2,jdbcType=VARCHAR},
+    image3 = #{record.image3,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -402,8 +402,8 @@
     select aa.id, ai.asset_name assetName ,aa.type applyType, u.user_name userName,date_format(aa.start_time, '%Y-%m-%d %H:%i:%s') startTime,aa.result result,ai.status status from  asset_apply aa, asset_info ai, user u
     where aa.asset_id = ai.id
     and aa.user_id = u.id
-    <if test="assetId != null" >
-      and aa.asset_id = #{assetId,jdbcType=INTEGER}
+    <if test="applyId != null" >
+      and aa.id = #{applyId,jdbcType=INTEGER}
     </if>
     <if test="assetName != null">
       AND ai.asset_name like CONCAT(CONCAT('%',#{assetName}),'%')
@@ -418,7 +418,7 @@
       and aa.user_id = #{userId,jdbcType=INTEGER}
     </if>
   </select>
-<!--  类型1:借用、2:申领、3:采购、4:反馈、5、固定使用-->
+  <!--  类型1:借用、2:申领、3:采购、4:反馈、5、固定使用-->
   <select id="countLend" resultType="java.lang.Integer">
     select count(1) from asset_apply where type = 1
   </select>
