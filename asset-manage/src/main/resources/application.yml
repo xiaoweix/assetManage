@@ -7,12 +7,29 @@ spring:
     password: xxw+2019
     url: jdbc:mysql://39.105.45.77:3306/asset_manage?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 47.106.234.164
+    port: 6379
+    database: 1
+    password: bai123
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+    timeout: 2000
+    data:
+      redis:
+        repositories:
+          enabled: false
 
 mybatis:
 #  configLocation: classpath:mybatis/mybatis-config.xml
   mapperLocations: classpath:mybatis/mapper/*Mapper.xml
   typeAliasesPackage: com.tusdao.**.model
   checkConfigLocation: true
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #showSql
 logging:

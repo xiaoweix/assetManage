@@ -8,6 +8,7 @@ import com.assetManage.tusdt.model.AssetInfo;
 import com.assetManage.tusdt.model.bo.AssetApplyListBO;
 import com.assetManage.tusdt.model.bo.AssetListBO;
 import com.assetManage.tusdt.model.bo.AssetUseHistoryBO;
+import com.assetManage.tusdt.redis.RedisService;
 import com.assetManage.tusdt.service.AssetInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +33,8 @@ public class AssetInfoController {
 
     @Autowired
     AssetInfoService assetInfoService;
-
+    @Autowired
+    RedisService redisService;
 
     @ApiOperation(value = "资源入库", notes = "增加资源")
     @ApiResponses({@ApiResponse(code = Response.OK, message = "添加成功"),})
@@ -53,6 +55,12 @@ public class AssetInfoController {
         }
         Integer userId = (Integer) request.getAttribute("id");
         responseData = assetInfoService.addAsset(userId,assetInfo);
+        /**
+         * 如果资源入库成功，则把它放入缓存
+         */
+        if (responseData.getCode() == 200){
+            redisService.set(String.valueOf(assetInfo.getId()),assetInfo);
+        }
         return responseData;
     }
 
@@ -106,9 +114,19 @@ public class AssetInfoController {
     @RequestMapping(value = "/assetDetail", method = RequestMethod.GET)
     @ResponseBody
     public ResponseData<AssetInfo> assetDetail(@RequestParam(name = "id", required = true, defaultValue = "1") Integer id) {
-
-        ResponseData<AssetInfo> responseData = assetInfoService.getAssetInfoDetail(id);
-        return responseData;
+        /**
+         * 添加缓存 缓存查询单个商品的信息
+         */
+        String key = String.valueOf(id);
+        Object redisassetDetail = redisService.get(key);
+        if (redisassetDetail == null){
+            ResponseData<AssetInfo> responseData = assetInfoService.getAssetInfoDetail(id);
+            if (responseData.getCode() != 500){
+                redisService.set(String.valueOf(assetInfoService.getAssetInfoDetail(id).getResult().getId()),responseData);
+            }
+            return responseData;
+        }
+        return (ResponseData<AssetInfo>) redisassetDetail;
     }
 
     @ApiOperation(value = "修改、编辑资源", notes = "修改资源")
@@ -130,6 +148,12 @@ public class AssetInfoController {
         }
         Integer userId = (Integer) request.getAttribute("id");
         responseData = assetInfoService.modifyAsset(userId,assetInfo);
+        /**
+         * 如果修改成功 则把缓存里面的数据删了
+         */
+        if (responseData.getCode() == 200){
+            redisService.delete(String.valueOf(userId));
+        }
         return responseData;
     }
 
